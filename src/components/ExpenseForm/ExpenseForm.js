@@ -1,11 +1,11 @@
 
-import React, { useState, useContext } from "react";
-import { FormContainer, Input, Button, Error } from "./ExpenseForm.styles";
+import React, { useState } from "react";
+import { FormContainer, Input, Button, Error, Select } from "./ExpenseForm.styles";
+
 import { useExpenseContext } from "../../context/ExpenseContext";
 
-
 const ExpenseForm = () => {
-  const { addExpense } = useExpenseContext(); // Correct usage of the custom hook
+  const { addExpense } = useExpenseContext();
 
   const [formData, setFormData] = useState({
     amount: "",
@@ -77,13 +77,16 @@ const ExpenseForm = () => {
         />
         {errors.category && <Error>{errors.category}</Error>}
 
-        <Input
-          type="text"
+        <Select
           name="paymentMethod"
           value={formData.paymentMethod}
-          placeholder="Payment Method"
           onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
-        />
+        >
+          <option value="">Select Payment Method</option>
+          <option value="Cash">Cash</option>
+          <option value="Credit Card">Credit Card</option>
+          <option value="Debit Card">Debit Card</option>
+        </Select>
         {errors.paymentMethod && <Error>{errors.paymentMethod}</Error>}
 
         <Button type="submit">Add Expense</Button>
@@ -93,4 +96,3 @@ const ExpenseForm = () => {
 };
 
 export default ExpenseForm;
-

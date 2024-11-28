@@ -1,13 +1,113 @@
 
 
 // import React, { useState } from "react";
-// import { Table } from "./ExpenseList.styles";
-// import { useExpenseContext } from "../../context/ExpenseContext";  // Corrected import
+// import { useExpenseContext } from "../../context/ExpenseContext";
+// import styled from "styled-components";
+
+// // Styled Components
+// const Container = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 1rem;
+//   background-color: #f9f9f9;
+// `;
+
+// const TableContainer = styled.div`
+//   overflow-x: auto;
+//   max-width: 90%;
+//   width: 800px;
+// `;
+
+// const StyledTable = styled.table`
+//   width: 100%;
+//   border-collapse: collapse;
+//   background-color: white; /* White table background */
+//   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+//   font-family: "Inter", sans-serif;
+
+//   thead {
+//     background-color: #d4d2ff; /* New soft purple header */
+//     color: #333; /* Dark text for contrast */
+
+//     th {
+//       padding: 1rem;
+//       text-align: center;
+//       cursor: pointer;
+//       user-select: none;
+
+//       &:hover {
+//         background-color: #b6b4f7; /* Slightly darker purple on hover */
+//       }
+//     }
+//   }
+
+//   tbody {
+//     tr {
+//       &:hover {
+//         background-color: #f2f2f2; /* Light grey hover effect */
+//       }
+//     }
+
+//     td {
+//       padding: 0.75rem;
+//       text-align: center;
+//       border-bottom: 1px solid #ddd;
+//     }
+//   }
+// `;
+
+// const ActionButton = styled.button`
+//   padding: 0.5rem 1rem;
+//   margin: 0 0.25rem;
+//   border: none;
+//   border-radius: 4px;
+//   font-size: 0.9rem;
+//   font-weight: bold;
+//   cursor: pointer;
+//   transition: background-color 0.3s ease;
+
+//   &:hover {
+//     opacity: 0.9;
+//   }
+
+//   ${({ variant }) => {
+//     switch (variant) {
+//       case "edit":
+//         return `
+//           background-color: #ffc107; /* Yellow for Edit */
+//           color: black;
+//         `;
+//       case "delete":
+//         return `
+//           background-color: #f44336; /* Red for Delete */
+//           color: white;
+//         `;
+//       case "save":
+//         return `
+//           background-color: #4caf50; /* Green for Save */
+//           color: white;
+//         `;
+//       case "cancel":
+//         return `
+//           background-color: #9e9e9e; /* Grey for Cancel */
+//           color: white;
+//         `;
+//       default:
+//         return `
+//           background-color: #4caf50;
+//           color: white;
+//         `;
+//     }
+//   }}
+// `;
 
 // const ExpenseList = () => {
-//   const { expenses, updateExpense, deleteExpense } = useExpenseContext(); // Using updateExpense
+//   const { expenses, updateExpense, deleteExpense } = useExpenseContext();
 //   const [editingId, setEditingId] = useState(null);
 //   const [editableData, setEditableData] = useState({});
+//   const [sortBy, setSortBy] = useState("amount");
+//   const [sortOrder, setSortOrder] = useState("asc");
 
 //   const handleUpdateClick = (expense) => {
 //     setEditingId(expense.id);
@@ -15,107 +115,243 @@
 //   };
 
 //   const handleSaveClick = () => {
-//     updateExpense(editingId, editableData); // Use the updateExpense function to modify the existing expense
-//     setEditingId(null); // Reset editing state after saving
+//     updateExpense(editingId, editableData);
+//     setEditingId(null);
 //   };
 
 //   const handleDeleteClick = (id) => {
-//     deleteExpense(id); // Call deleteExpense when the delete button is clicked
+//     deleteExpense(id);
 //   };
 
+//   const handleSort = (criteria) => {
+//     if (sortBy === criteria) {
+//       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+//     } else {
+//       setSortBy(criteria);
+//       setSortOrder("asc");
+//     }
+//   };
+
+//   const sortedExpenses = [...expenses].sort((a, b) => {
+//     const compare = (field) => {
+//       if (typeof a[field] === "string" && typeof b[field] === "string") {
+//         return a[field].localeCompare(b[field]);
+//       } else if (typeof a[field] === "number" && typeof b[field] === "number") {
+//         return a[field] - b[field];
+//       }
+//       return 0;
+//     };
+
+//     const comparison = compare(sortBy);
+//     return sortOrder === "asc" ? comparison : -comparison;
+//   });
+
 //   return (
-//     <Table>
-//       <thead>
-//         <tr>
-//           <th>Amount</th>
-//           <th>Description</th>
-//           <th>Date</th>
-//           <th>Category</th>
-//           <th>Payment Method</th>
-//           <th>Actions</th>
-//         </tr>
-//       </thead>
-//       <tbody>
-//         {expenses.map((expense) => (
-//           <tr key={expense.id}>
-//             {editingId === expense.id ? (
-//               // In Edit Mode: Show Save Button
-//               <>
-//                 <td>
-//                   <input
-//                     type="number"
-//                     value={editableData.amount}
-//                     onChange={(e) => setEditableData({ ...editableData, amount: e.target.value })}
-//                   />
-//                 </td>
-//                 <td>
-//                   <input
-//                     type="text"
-//                     value={editableData.description}
-//                     onChange={(e) => setEditableData({ ...editableData, description: e.target.value })}
-//                   />
-//                 </td>
-//                 <td>
-//                   <input
-//                     type="date"
-//                     value={editableData.date}
-//                     onChange={(e) => setEditableData({ ...editableData, date: e.target.value })}
-//                   />
-//                 </td>
-//                 <td>
-//                   <input
-//                     type="text"
-//                     value={editableData.category}
-//                     onChange={(e) => setEditableData({ ...editableData, category: e.target.value })}
-//                   />
-//                 </td>
-//                 <td>
-//                   <input
-//                     type="text"
-//                     value={editableData.paymentMethod}
-//                     onChange={(e) => setEditableData({ ...editableData, paymentMethod: e.target.value })}
-//                   />
-//                 </td>
-//                 <td>
-//                   <button onClick={handleSaveClick}>Save</button> {/* Save button while editing */}
-//                   <button onClick={() => setEditingId(null)}>Cancel</button>
-//                 </td>
-//               </>
-//             ) : (
-//               // In Normal Mode: Show Update and Delete Buttons
-//               <>
-//                 <td>{expense.amount}</td>
-//                 <td>{expense.description}</td>
-//                 <td>{expense.date}</td>
-//                 <td>{expense.category}</td>
-//                 <td>{expense.paymentMethod}</td>
-//                 <td>
-//                   <button onClick={() => handleUpdateClick(expense)}>Edit</button> {/* Edit button */}
-//                   <button onClick={() => handleDeleteClick(expense.id)}>Delete</button> {/* Delete button */}
-//                 </td>
-//               </>
-//             )}
-//           </tr>
-//         ))}
-//       </tbody>
-//     </Table>
+//     <Container>
+//       <TableContainer>
+//         <StyledTable>
+//           <thead>
+//             <tr>
+//               <th onClick={() => handleSort("amount")}>
+//                 Amount {sortBy === "amount" && (sortOrder === "asc" ? "↑" : "↓")}
+//               </th>
+//               <th onClick={() => handleSort("date")}>
+//                 Date {sortBy === "date" && (sortOrder === "asc" ? "↑" : "↓")}
+//               </th>
+//               <th onClick={() => handleSort("category")}>
+//                 Category {sortBy === "category" && (sortOrder === "asc" ? "↑" : "↓")}
+//               </th>
+//               <th>Actions</th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {sortedExpenses.map((expense) => (
+//               <tr
+//                 key={expense.id}
+//                 style={{
+//                   backgroundColor:
+//                     editingId === expense.id ? "#e8f5e9" : "inherit",
+//                 }}
+//               >
+//                 {editingId === expense.id ? (
+//                   <>
+//                     <td>
+//                       <input
+//                         type="number"
+//                         value={editableData.amount}
+//                         placeholder="Amount"
+//                         onChange={(e) =>
+//                           setEditableData({
+//                             ...editableData,
+//                             amount: e.target.value,
+//                           })
+//                         }
+//                       />
+//                     </td>
+//                     <td>
+//                       <input
+//                         type="date"
+//                         value={editableData.date}
+//                         placeholder="Date"
+//                         onChange={(e) =>
+//                           setEditableData({
+//                             ...editableData,
+//                             date: e.target.value,
+//                           })
+//                         }
+//                       />
+//                     </td>
+//                     <td>
+//                       <input
+//                         type="text"
+//                         value={editableData.category}
+//                         placeholder="Category"
+//                         onChange={(e) =>
+//                           setEditableData({
+//                             ...editableData,
+//                             category: e.target.value,
+//                           })
+//                         }
+//                       />
+//                     </td>
+//                     <td>
+//                       <ActionButton variant="save" onClick={handleSaveClick}>
+//                         Save
+//                       </ActionButton>
+//                       <ActionButton
+//                         variant="cancel"
+//                         onClick={() => setEditingId(null)}
+//                       >
+//                         Cancel
+//                       </ActionButton>
+//                     </td>
+//                   </>
+//                 ) : (
+//                   <>
+//                     <td>{expense.amount}</td>
+//                     <td>{expense.date}</td>
+//                     <td>{expense.category}</td>
+//                     <td>
+//                       <ActionButton
+//                         variant="edit"
+//                         onClick={() => handleUpdateClick(expense)}
+//                       >
+//                         Edit
+//                       </ActionButton>
+//                       <ActionButton
+//                         variant="delete"
+//                         onClick={() => handleDeleteClick(expense.id)}
+//                       >
+//                         Delete
+//                       </ActionButton>
+//                     </td>
+//                   </>
+//                 )}
+//               </tr>
+//             ))}
+//           </tbody>
+//         </StyledTable>
+//       </TableContainer>
+//     </Container>
 //   );
 // };
 
 // export default ExpenseList;
 
 
-
 import React, { useState } from "react";
-import { Table } from "./ExpenseList.styles";
-import { useExpenseContext } from "../../context/ExpenseContext";  // Corrected import
+import { useExpenseContext } from "../../context/ExpenseContext";
+import styled from "styled-components";
+
+// Styled Components
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f9f9f9; 
+`;
+
+const TableContainer = styled.div`
+  overflow-x: auto; 
+  max-width: 90%;
+  width: 800px;
+`;
+
+const StyledTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white; /* White table background */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  font-family: "Inter", sans-serif;
+
+  thead {
+    background-color: #d4d2ff; /* New soft purple header */
+    color: #333; /* Dark text for contrast */
+
+    th {
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        background-color: #b6b4f7; /* Slightly darker purple on hover */
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &:hover {
+        background-color: #f2f2f2; /* Light grey hover effect */
+      }
+    }
+
+    td {
+      padding: 0.75rem;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+  }
+`;
+
+const ActionButton = styled.button`
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  ${({ variant }) => {
+    switch (variant) {
+      case "edit":
+        return `background-color: #ffc107; /* Yellow for Edit */`;
+      case "delete":
+        return `background-color: #f44336; /* Red for Delete */`;
+      case "save":
+        return `background-color: #4caf50; /* Green for Save */`;
+      case "cancel":
+        return `background-color: #9e9e9e; /* Grey for Cancel */`;
+      default:
+        return `background-color: #4caf50; color: white;`;
+    }
+  }}
+`;
 
 const ExpenseList = () => {
-  const { expenses, updateExpense, deleteExpense } = useExpenseContext(); // Using updateExpense
+  const { expenses, updateExpense, deleteExpense } = useExpenseContext();
   const [editingId, setEditingId] = useState(null);
   const [editableData, setEditableData] = useState({});
-  const [sortBy, setSortBy] = useState("amount"); // Default sorting by amount
-  const [sortOrder, setSortOrder] = useState("asc"); // Default ascending order
+  const [sortBy, setSortBy] = useState("amount");
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const handleUpdateClick = (expense) => {
     setEditingId(expense.id);
@@ -123,25 +359,23 @@ const ExpenseList = () => {
   };
 
   const handleSaveClick = () => {
-    updateExpense(editingId, editableData); // Use the updateExpense function to modify the existing expense
-    setEditingId(null); // Reset editing state after saving
+    updateExpense(editingId, editableData);
+    setEditingId(null);
   };
 
   const handleDeleteClick = (id) => {
-    deleteExpense(id); // Call deleteExpense when the delete button is clicked
+    deleteExpense(id);
   };
 
   const handleSort = (criteria) => {
-    // Toggle sort order if the same criteria is selected again
     if (sortBy === criteria) {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     } else {
       setSortBy(criteria);
-      setSortOrder("asc"); // Default to ascending when switching criteria
+      setSortOrder("asc");
     }
   };
 
-  // Function to sort the expenses based on the selected criteria
   const sortedExpenses = [...expenses].sort((a, b) => {
     const compare = (field) => {
       if (typeof a[field] === "string" && typeof b[field] === "string") {
@@ -157,63 +391,146 @@ const ExpenseList = () => {
   });
 
   return (
-    <div>
-      <Table>
-        <thead>
-          <tr>
-            <th onClick={() => handleSort("amount")}>Amount {sortBy === "amount" && (sortOrder === "asc" ? "↑" : "↓")}</th>
-            <th onClick={() => handleSort("date")}>Date {sortBy === "date" && (sortOrder === "asc" ? "↑" : "↓")}</th>
-            <th onClick={() => handleSort("category")}>Category {sortBy === "category" && (sortOrder === "asc" ? "↑" : "↓")}</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedExpenses.map((expense) => (
-            <tr key={expense.id}>
-              {editingId === expense.id ? (
-                <>
-                  <td>
-                    <input
-                      type="number"
-                      value={editableData.amount}
-                      onChange={(e) => setEditableData({ ...editableData, amount: e.target.value })}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="date"
-                      value={editableData.date}
-                      onChange={(e) => setEditableData({ ...editableData, date: e.target.value })}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value={editableData.category}
-                      onChange={(e) => setEditableData({ ...editableData, category: e.target.value })}
-                    />
-                  </td>
-                  <td>
-                    <button onClick={handleSaveClick}>Save</button>
-                    <button onClick={() => setEditingId(null)}>Cancel</button>
-                  </td>
-                </>
-              ) : (
-                <>
-                  <td>{expense.amount}</td>
-                  <td>{expense.date}</td>
-                  <td>{expense.category}</td>
-                  <td>
-                    <button onClick={() => handleUpdateClick(expense)}>Edit</button>
-                    <button onClick={() => handleDeleteClick(expense.id)}>Delete</button>
-                  </td>
-                </>
-              )}
+    <Container>
+      <TableContainer>
+        <StyledTable>
+          <thead>
+            <tr>
+              <th onClick={() => handleSort("amount")}>
+                Amount {sortBy === "amount" && (sortOrder === "asc" ? "↑" : "↓")}
+              </th>
+              <th onClick={() => handleSort("date")}>
+                Date {sortBy === "date" && (sortOrder === "asc" ? "↑" : "↓")}
+              </th>
+              <th onClick={() => handleSort("category")}>
+                Category {sortBy === "category" && (sortOrder === "asc" ? "↑" : "↓")}
+              </th>
+              {/* <th onClick={() => handleSort("description")}>
+                Description {sortBy === "description" && (sortOrder === "asc" ? "↑" : "↓")}
+              </th> */}
+              <th onClick={() => handleSort("paymentMethod")}>
+                Payment Method {sortBy === "paymentMethod" && (sortOrder === "asc" ? "↑" : "↓")}
+              </th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+          </thead>
+          <tbody>
+            {sortedExpenses.map((expense) => (
+              <tr
+                key={expense.id}
+                style={{
+                  backgroundColor:
+                    editingId === expense.id ? "#e8f5e9" : "inherit",
+                }}
+              >
+                {editingId === expense.id ? (
+                  <>
+                    <td>
+                      <input
+                        type="number"
+                        value={editableData.amount}
+                        placeholder="Amount"
+                        onChange={(e) =>
+                          setEditableData({
+                            ...editableData,
+                            amount: e.target.value,
+                          })
+                        }
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="date"
+                        value={editableData.date}
+                        placeholder="Date"
+                        onChange={(e) =>
+                          setEditableData({
+                            ...editableData,
+                            date: e.target.value,
+                          })
+                        }
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        value={editableData.category}
+                        placeholder="Category"
+                        onChange={(e) =>
+                          setEditableData({
+                            ...editableData,
+                            category: e.target.value,
+                          })
+                        }
+                      />
+                    </td>
+                    {/* <td>
+                      <input
+                        type="text"
+                        value={editableData.description}
+                        placeholder="Description"
+                        onChange={(e) =>
+                          setEditableData({
+                            ...editableData,
+                            description: e.target.value,
+                          })
+                        }
+                      />
+                    </td> */}
+                    <td>
+                      <input
+                        type="text"
+                        value={editableData.paymentMethod}
+                        placeholder="Payment Method"
+                        onChange={(e) =>
+                          setEditableData({
+                            ...editableData,
+                            paymentMethod: e.target.value,
+                          })
+                        }
+                      />
+                    </td>
+                    <td>
+                      <ActionButton variant="save" onClick={handleSaveClick}>
+                        Save
+                      </ActionButton>
+                      <ActionButton
+                        variant="cancel"
+                        onClick={() => setEditingId(null)}
+                      >
+                        Cancel
+                      </ActionButton>
+                    </td>
+                  </>
+                ) : (
+                  <>
+                    <td>{expense.amount}</td>
+                    <td>{expense.date}</td>
+                    <td>{expense.category}</td>
+                    {/* <td>{expense.description}</td> */}
+                    <td>{expense.paymentMethod}</td>
+                    <td>
+                      <ActionButton
+                        variant="edit"
+                        onClick={() => handleUpdateClick(expense)}
+                      >
+                        Edit
+                      </ActionButton>
+                      <ActionButton
+                        variant="delete"
+                        onClick={() => handleDeleteClick(expense.id)}
+                      >
+                        Delete
+                      </ActionButton>
+                    </td>
+                  </>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </StyledTable>
+      </TableContainer>
+    </Container>
   );
 };
 

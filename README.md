@@ -1,6 +1,4 @@
-To include the deployment URL in a professional way, you can add a "Deployment" section in your `README.md`. This section will provide users with the live link to access the application. Here’s how you can modify your `README.md`:
 
-```markdown
 # Expense Tracker
 
 ## Description
@@ -53,7 +51,7 @@ The Expense Tracker is a web application that helps users track their expenses, 
 
 ## Deployment
 
-You can view the live application deployed [here](https://your-app-url.com). This URL will take you to the live version of the Expense Tracker app hosted on your deployment platform (e.g., Vercel, Netlify).
+You can view the live application deployed [here](https://expense-tracker-nu-lemon.vercel.app/). This URL will take you to the live version of the Expense Tracker app hosted on your deployment platform (e.g., Vercel, Netlify).
 
 ## Folder Structure
 ```

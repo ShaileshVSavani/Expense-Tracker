@@ -1,24 +1,5 @@
 import styled from "styled-components";
 
-// export const Table = styled.table`
-//   width: 100%;
-//   border-collapse: collapse;
-
-//   th, td {
-//     padding: 10px;
-//     border: 1px solid #ddd;
-//     text-align: left;
-//   }
-
-//   th {
-//     background-color: ${({ theme }) => theme.primary};
-//     color: white;
-//   }
-// `;
-
-
-
-
 
 export const PaginationContainer = styled.div`
   display: flex;
@@ -134,20 +115,7 @@ export const Select = styled.select`
   background-color: white;
 `;
 
-export const Button = styled.button`
-  background-color: #d4d2ff;
-  color: #333;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
 
-  &:hover {
-    background-color: #b6b4f7;
-  }
-`;
 
 export const Error = styled.div`
   color: red;

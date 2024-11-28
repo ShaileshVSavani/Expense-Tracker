@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+To include the deployment URL in a professional way, you can add a "Deployment" section in your `README.md`. This section will provide users with the live link to access the application. Here’s how you can modify your `README.md`:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```markdown
+# Expense Tracker
 
-## Available Scripts
+## Description
+The Expense Tracker is a web application that helps users track their expenses, manage budgets, and analyze their spending. The app allows users to add, view, edit, and delete their expenses. The project utilizes React for the frontend, styled-components for styling, and context API for state management.
 
-In the project directory, you can run:
+## Features
+- **Dashboard**: Displays a summary of the user's expenses.
+- **Add Expense**: Allows users to add new expenses with details like amount, date, category, and payment method.
+- **Expense List**: Displays a list of all expenses with options to sort and filter by amount, date, category, and payment method.
+- **Edit Expense**: Users can edit existing expenses.
+- **Delete Expense**: Allows users to delete an expense with a confirmation alert.
 
-### `npm start`
+## Tech Stack
+- **Frontend**: React, styled-components
+- **State Management**: Context API
+- **Routing**: React Router DOM
+- **Styling**: Custom styled-components
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ShaileshVSavani/Expense-Tracker.git
+   ```
 
-### `npm test`
+2. Navigate into the project directory:
+   ```bash
+   cd expense-tracker
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### `npm run build`
+4. Start the development server:
+   ```bash
+   npm start
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   The application will be available at `http://localhost:3000`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Dashboard**: View a summary of your expenses.
+2. **Add Expense**: Add a new expense by filling out the form with details such as amount, date, category, and payment method.
+3. **Expense List**: View your added expenses, and sort them by amount, date, category, or payment method.
+4. **Edit Expense**: Click on the "Edit" button next to an expense to update its details.
+5. **Delete Expense**: Click on the "Delete" button next to an expense to remove it from the list (requires confirmation).
 
-### `npm run eject`
+## Deployment
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+You can view the live application deployed [here](https://your-app-url.com). This URL will take you to the live version of the Expense Tracker app hosted on your deployment platform (e.g., Vercel, Netlify).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Folder Structure
+```
+/src
+  /components
+    /ExpenseForm      - Component for adding or editing expenses
+    /ExpenseList      - Component for displaying the list of expenses
+  /context
+    /ExpenseContext   - Provides global state for expenses
+  /pages
+    /Dashboard        - Displays a summary of expenses
+  /styles
+    /GlobalStyle.js   - Global styling using styled-components
+  App.js              - Main entry point for the React application
+  index.js            - Renders the application
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Development
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- The app uses `styled-components` for styling, allowing scoped and reusable CSS within components.
+- The `ExpenseContext` is used to manage and share the state for expenses across different components.
 
-## Learn More
+### Running Tests
+To run tests (if any), use:
+```bash
+npm test
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Acknowledgements
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- React Documentation: [https://reactjs.org/](https://reactjs.org/)
+- Styled-Components Documentation: [https://styled-components.com/](https://styled-components.com/)
+- React Router Documentation: [https://reactrouter.com/](https://reactrouter.com/)
+```
